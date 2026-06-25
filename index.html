@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CivicLens AI</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">CL</div>
+          <div>
+            <strong>CivicLens AI</strong>
+            <span>Hyperlocal issue resolver</span>
+          </div>
+        </div>
+
+        <nav class="nav-list">
+          <button class="nav-item active" data-view="reportView" type="button">
+            <span class="icon">+</span>
+            Report
+          </button>
+          <button class="nav-item" data-view="queueView" type="button">
+            <span class="icon">≡</span>
+            Priority Queue
+          </button>
+          <button class="nav-item" data-view="dashboardView" type="button">
+            <span class="icon">□</span>
+            Impact
+          </button>
+        </nav>
+
+        <div class="sidebar-panel">
+          <span class="panel-label">Google AI Studio</span>
+          <p>Uses Gemini multimodal analysis to classify, prioritize, deduplicate, and route civic reports.</p>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Problem Statement 2</p>
+            <h1>Community Hero</h1>
+          </div>
+          <div class="status-chip" id="modeChip">Demo mode ready</div>
+        </header>
+
+        <section class="view active" id="reportView">
+          <div class="hero-strip">
+            <div class="hero-copy">
+              <p class="eyebrow">AI civic triage desk</p>
+              <h2>From street evidence to accountable action in under a minute.</h2>
+            </div>
+            <div class="hero-signal" aria-label="Live civic signal">
+              <span class="pulse-dot"></span>
+              <strong>Ward risk scan active</strong>
+              <small>Gemini-ready image + text analysis</small>
+            </div>
+          </div>
+
+          <div class="report-layout">
+            <form class="report-form" id="reportForm">
+              <div class="section-heading">
+                <p class="eyebrow">Citizen report</p>
+                <h2>Turn a field photo into an action-ready civic case.</h2>
+              </div>
+
+              <label class="api-field">
+                <span>Gemini API key</span>
+                <input id="apiKey" type="password" autocomplete="off" placeholder="Optional for live Gemini analysis" />
+              </label>
+
+              <label class="dropzone" id="dropzone">
+                <input id="imageInput" type="file" accept="image/*" />
+                <span class="drop-icon">↑</span>
+                <strong>Upload issue photo</strong>
+                <small>Potholes, waste, water leakage, damaged lights, unsafe roads</small>
+              </label>
+
+              <div class="field-grid">
+                <label>
+                  <span>Area</span>
+                  <input id="areaInput" required placeholder="e.g. Koramangala 5th Block" />
+                </label>
+                <label>
+                  <span>Landmark</span>
+                  <input id="landmarkInput" placeholder="e.g. near metro gate" />
+                </label>
+              </div>
+
+              <label>
+                <span>Citizen notes</span>
+                <textarea id="notesInput" rows="5" placeholder="Describe what people nearby are experiencing."></textarea>
+              </label>
+
+              <div class="actions">
+                <button class="primary-btn" id="analyzeBtn" type="submit">Analyze & create case</button>
+                <button class="ghost-btn" id="sampleBtn" type="button">Load sample</button>
+              </div>
+            </form>
+
+            <article class="analysis-panel" aria-live="polite">
+              <div class="preview-frame">
+                <img id="imagePreview" alt="Uploaded civic issue preview" />
+                <div class="empty-preview" id="emptyPreview">Photo preview</div>
+              </div>
+
+              <div class="agent-card">
+                <div class="agent-header">
+                  <div>
+                    <p class="eyebrow">AI triage agent</p>
+                    <h2 id="analysisTitle">Awaiting report</h2>
+                  </div>
+                  <span class="severity-pill" id="severityPill">--</span>
+                </div>
+
+                <div class="agent-grid">
+                  <div>
+                    <span>Category</span>
+                    <strong id="categoryValue">--</strong>
+                  </div>
+                  <div>
+                    <span>Department</span>
+                    <strong id="departmentValue">--</strong>
+                  </div>
+                  <div>
+                    <span>Priority</span>
+                    <strong id="priorityValue">--</strong>
+                  </div>
+                  <div>
+                    <span>Duplicate risk</span>
+                    <strong id="duplicateValue">--</strong>
+                  </div>
+                </div>
+
+                <div class="agent-output">
+                  <h3>Agent reasoning</h3>
+                  <p id="reasoningValue">Submit a report to generate a structured civic case.</p>
+                </div>
+
+                <div class="agent-output">
+                  <h3>Next actions</h3>
+                  <ol id="actionsList">
+                    <li>Add a field photo and location context.</li>
+                  </ol>
+                </div>
+
+                <button class="primary-btn full" id="saveCaseBtn" type="button" disabled>Add to public tracker</button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="queueView">
+          <div class="section-heading">
+            <p class="eyebrow">Transparent tracker</p>
+            <h2>Community-validated issues ranked by urgency and impact.</h2>
+          </div>
+          <div class="queue-toolbar">
+            <button class="ghost-btn active" data-filter="all" type="button">All</button>
+            <button class="ghost-btn" data-filter="high" type="button">High priority</button>
+            <button class="ghost-btn" data-filter="verified" type="button">Verified</button>
+          </div>
+          <div class="issue-list" id="issueList"></div>
+        </section>
+
+        <section class="view" id="dashboardView">
+          <div class="section-heading">
+            <p class="eyebrow">Impact dashboard</p>
+            <h2>Signals for faster accountability.</h2>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric">
+              <span>Open cases</span>
+              <strong id="openMetric">0</strong>
+            </div>
+            <div class="metric">
+              <span>High priority</span>
+              <strong id="highMetric">0</strong>
+            </div>
+            <div class="metric">
+              <span>Community confirmations</span>
+              <strong id="confirmMetric">0</strong>
+            </div>
+            <div class="metric">
+              <span>Resolved this week</span>
+              <strong id="resolvedMetric">0</strong>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="map-panel">
+              <h3>Issue density</h3>
+              <div class="map-grid" id="mapGrid" aria-label="Issue density map"></div>
+            </div>
+            <div class="chart-panel">
+              <h3>Category split</h3>
+              <div id="categoryBars"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
