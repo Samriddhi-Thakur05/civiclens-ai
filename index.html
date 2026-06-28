@@ -30,6 +30,10 @@
             <span class="icon">□</span>
             Impact
           </button>
+          <button class="nav-item" data-view="geminiView" type="button">
+            <span class="icon">G</span>
+            Ask Gemini
+          </button>
         </nav>
 
         <div class="sidebar-panel">
@@ -53,6 +57,7 @@
               <p class="eyebrow">AI civic triage desk</p>
               <h2>From street evidence to accountable action in under a minute.</h2>
             </div>
+            <img class="hero-art" src="civic-hero.svg" alt="Stylized civic issue reporting dashboard" />
             <div class="hero-signal" aria-label="Live civic signal">
               <span class="pulse-dot"></span>
               <strong>Ward risk scan active</strong>
@@ -199,6 +204,34 @@
               <h3>Category split</h3>
               <div id="categoryBars"></div>
             </div>
+          </div>
+        </section>
+
+        <section class="view" id="geminiView">
+          <div class="section-heading">
+            <p class="eyebrow">Gemini civic assistant</p>
+            <h2>Ask Gemini how to report, prioritize, or resolve a local issue.</h2>
+          </div>
+
+          <div class="gemini-layout">
+            <div class="gemini-panel">
+              <div class="gemini-messages" id="geminiMessages" aria-live="polite">
+                <div class="chat-bubble ai">
+                  Hi, I am CivicLens Gemini. Ask me about potholes, waste, water leakage, streetlights, or how to improve your report.
+                </div>
+              </div>
+              <form class="gemini-form" id="geminiForm">
+                <input id="geminiQuestion" placeholder="Ask Gemini about a civic issue..." />
+                <button class="primary-btn" id="geminiSendBtn" type="submit">Ask</button>
+              </form>
+            </div>
+
+            <aside class="gemini-tips">
+              <h3>Good questions</h3>
+              <button class="ghost-btn prompt-chip" type="button">How should I report a dangerous pothole?</button>
+              <button class="ghost-btn prompt-chip" type="button">Which department handles broken streetlights?</button>
+              <button class="ghost-btn prompt-chip" type="button">Help me write a clear civic complaint.</button>
+            </aside>
           </div>
         </section>
       </main>
